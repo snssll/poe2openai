@@ -38,7 +38,7 @@ async def chat_completions(request: Request):
     ]
 
     async def generate():
-        async for chunk in fp.get_bot_response(messages=messages, bot_name=bot_name, api_key=api_key):
+        async for chunk in fp.get_bot_response(messages=messages, bot_name=bot_name, api_key=api_key, temperature=0.2):
             response = response_template.copy()
             response["choices"][0]["delta"]["content"] = chunk.text
             if not chunk.text:

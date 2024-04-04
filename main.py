@@ -6,24 +6,25 @@ import uvicorn
 
 app = FastAPI()
 
-response_template = {
-    "id": "chatcmpl-123",
-    "object": "chat.completion.chunk",
-    "created": 123,
-    "model": "Claude-3-Opus",
-    "system_fingerprint": "fp_123",
-    "choices": [
-        {
-            "index": 0,
-            "delta": { "role": "assistant", "content": "" },
-            "logprobs": None,
-            "finish_reason": None
-        }
-    ]
-}
 
 @app.post("/v1/chat/completions")
 async def chat_completions(request: Request):
+
+    response_template = {
+        "id": "chatcmpl-123",
+        "object": "chat.completion.chunk",
+        "created": 123,
+        "model": "Claude-3-Opus",
+        "system_fingerprint": "fp_123",
+        "choices": [
+            {
+                "index": 0,
+                "delta": {"role": "assistant", "content": ""},
+                "logprobs": None,
+                "finish_reason": None
+            }
+        ]
+    }
 
     request_body = await request.json()
 
@@ -32,8 +33,12 @@ async def chat_completions(request: Request):
 
     messages = [
         fp.ProtocolMessage(
-            role="user", 
-            content=request_body["messages"][0]['content'] + '\n' + request_body["messages"][1]['content']
+            role="system",
+            content=request_body["messages"][0]['content']
+        ),
+        fp.ProtocolMessage(
+            role="user",
+            content=request_body["messages"][1]['content']
         ),
     ]
 
@@ -49,4 +54,3 @@ async def chat_completions(request: Request):
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8765)
-

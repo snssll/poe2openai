@@ -32,15 +32,7 @@ async def chat_completions(request: Request):
     bot_name = request_body["model"]
 
     def map_message(message):
-        """
-        Map the role field of the message.
-        Parameters:
-        - message: A dictionary containing the message content and its attributes, which must include the "role" field.
-        Return value:
-        - The modified message dictionary, with the role changed to "bot" if it is "assistant".
-        """
-        message["role"] = "bot" if message["role"] == "assistant" else message["role"]
-        return message
+        return {**message, "role": "bot" if message["role"] == "assistant" else message["role"]}
 
     messages = [fp.ProtocolMessage(**map_message(m)) for m in request_body["messages"]]
 

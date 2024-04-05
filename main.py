@@ -30,17 +30,7 @@ async def chat_completions(request: Request):
 
     api_key = request.headers.get("Authorization").split(" ")[1]
     bot_name = request_body["model"]
-
-    messages = [
-        fp.ProtocolMessage(
-            role="system",
-            content=request_body["messages"][0]['content']
-        ),
-        fp.ProtocolMessage(
-            role="user",
-            content=request_body["messages"][1]['content']
-        ),
-    ]
+    messages = [fp.ProtocolMessage(**message) for message in request_body["messages"]]
 
     async def generate():
         async for chunk in fp.get_bot_response(messages=messages, bot_name=bot_name, api_key=api_key, temperature=0.2):

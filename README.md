@@ -12,7 +12,7 @@ docker run -d --name poe2openai -p 8765:8765 1ynn/poe2openai:[YOUR TAG]
 
 ### DIY
 
-1. Set up your local 🐳Docker environment;
+1. Set up your local 🐳 Docker environment;
 2. Clone this project to your local machine;
 3. Navigate to the project directory and run `docker build -t poe2openai .` to 🔧build the image;
 4. Run `docker run -d --name poe2openai -p 8765:8765 poe2openai` to start the container;

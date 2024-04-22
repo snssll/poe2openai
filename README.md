@@ -7,7 +7,7 @@ This is a tool that 🛠️seamlessly converts the POE developer API to the stan
 ### One-Step Running
 
 ```
-docker run -d --name poe2openai -p 8765:8765 1ynn/poe2openai:[YOUR TAG]
+docker run -d --name poe2openai -p 8765:8765 1ynn/poe2openai:latest
 ```
 
 ### DIY

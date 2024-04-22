@@ -19,8 +19,8 @@ jobs:
     - name: 登录DockerHub...
       uses: docker/login-action@v3
       with:
-        username: ${{ sercets.DOCKER_HUB_USERNAME }}
-        password: ${{ sercets.DOCKER_HUB_TOKEN }}
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_TOKEN }}
         
     - name: 构建并推送...
       uses: docker/build-push-action@v5

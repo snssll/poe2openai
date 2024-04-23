@@ -33,13 +33,18 @@ async def get_request_params(request: Request):
     request_headers = request.headers
 
     def map_message(message):
-        return {**message, "role": "bot" if message["role"] == "assistant" else message["role"]}
+        return {
+            **message,
+            "role": "bot" if message["role"] == "assistant" else message["role"]
+        }
 
     return {
         "api_key": request_headers.get("Authorization").split(" ")[1],
         "model": BOTS_LIST.get(request_body["model"], DEFAULT_MODEL),
         "max_tokens": request_body.get("max_tokens", 1024),
-        "messages": [fp.ProtocolMessage(**map_message(m)) for m in request_body["messages"]],
+        "messages": [
+            fp.ProtocolMessage(**map_message(m)) for m in request_body["messages"]
+        ],
         "temperature": request_body.get("temperature", 1),
         "top_p": request_body.get("top_p", 1),
         "frequency_penalty": request_body.get("frequency_penalty", 1),

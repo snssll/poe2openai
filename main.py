@@ -53,6 +53,7 @@ async def get_request_params(request: Request):
     }
 
 
+@app.post("/v1/chat/completions")
 @app.post("/openai/chat/completions")
 async def chat_completions(request: Request):
     params = await get_request_params(request)

@@ -68,9 +68,10 @@ async def chat_completions(request: Request):
             response = RESPONSE_TEMPLATE.copy()
             response["model"] = params["model"]
             response["choices"][0]["delta"]["content"] = chunk.text
+            print(chunk.text)
             if not chunk.text:
                 response["choices"][0]["finish_reason"] = "stop"
-            yield f"data: {json.dumps(response)}\n"
+            yield f"data: {json.dumps(response)}\n\n"
 
     return StreamingResponse(generate(), media_type="text/event-stream")
 

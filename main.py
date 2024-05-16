@@ -31,12 +31,17 @@ RESPONSE_TEMPLATE = {
 async def get_request_params(request: Request):
     request_body = await request.json()
     request_headers = request.headers
+    # fix request body
+    for message in request_body["messages"]:
+        if isinstance(message["content"], list):
+            message["content"] = message["content"][0]["text"]
 
     def map_message(message):
         return {
             **message,
             "role": "bot" if message["role"] == "assistant" else message["role"]
         }
+
 
     return {
         "api_key": request_headers.get("Authorization").split(" ")[1],
@@ -68,7 +73,6 @@ async def chat_completions(request: Request):
             response = RESPONSE_TEMPLATE.copy()
             response["model"] = params["model"]
             response["choices"][0]["delta"]["content"] = chunk.text
-            print(chunk.text)
             if not chunk.text:
                 response["choices"][0]["finish_reason"] = "stop"
             yield f"data: {json.dumps(response)}\n\n"

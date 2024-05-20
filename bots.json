@@ -1,5 +1,6 @@
 {
   "gpt-4": "GPT-4",
+  "gpt-4o-128k": "GPT-4o-128K",
   "gpt-4o": "GPT-4o",
   "gpt-4-turbo": "GPT-4-128K",
   "claude-3-opus-20240229": "Claude-3-Opus",

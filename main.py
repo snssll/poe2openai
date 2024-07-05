@@ -50,7 +50,7 @@ async def get_request_params(request: Request):
         "messages": [
             fp.ProtocolMessage(**map_message(m)) for m in request_body["messages"]
         ],
-        "temperature": request_body.get("temperature", 1),
+        "temperature": request_body.get("temperature", 0),
         "top_p": request_body.get("top_p", 1),
         "frequency_penalty": request_body.get("frequency_penalty", 1),
         "presence_penalty": request_body.get("presence_penalty", 1),

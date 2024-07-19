@@ -2,11 +2,17 @@
 
 This is a tool that 🛠️seamlessly converts the POE developer API to the standard OpenAI API format.
 
-## Supported models (in bots.json)
+## Models mapping (detail in bots.json)
 
-```
-gpt-4 gpt-4-turbo claude-3-opus/sonnet/haiku gemini-1.5-pro
-```
+| Poe Model Name | Mapping Name |
+|---------------|--------------|
+|GPT-4o-Mini    | gpt-4o-mini |
+|GPT-4o         | gpt-4o       |
+|GPT-4o-128k    | gpt-4o-128k |
+|GPT-4-Turbo     | gpt-4-turbo |
+|GPT-4-Turbo-128K | gpt-4-turbo-128k |
+|Claude-3.5-Sonnet | claude-3.5-sonnet |
+|Claude-3.5-Sonnet-200k | claude-3.5-sonnet-200k |
 
 ## How to Use?🤔
 

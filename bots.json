@@ -1,12 +1,15 @@
 {
   "gpt-4o": "GPT-4o",
   "gpt-4-turbo": "GPT-4-Turbo",
+  "gpt-4o-mini": "GPT-4o-Mini",
   "claude-3.5-sonnet": "Claude-3.5-Sonnet",
   "claude-3.5-sonnet-20240620": "Claude-3.5-Sonnet",
   "gemini-1.5-pro-latest": "Gemini-1.5-Pro",
   "qwen2-turbo": "Qwen2-72B-Chat",
 
+  "gpt-4o-128k": "GPT-4o-128K",
   "gpt-4-turbo-128k": "GPT-4-Turbo-128K",
+  "claude-3.5-sonnet-200k": "Claude-3.5-Sonnet-200k",
 
   "gemini-1.5-pro": "Gemini-1.5-pro",
 

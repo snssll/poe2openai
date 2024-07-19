@@ -31,10 +31,25 @@ RESPONSE_TEMPLATE = {
 async def get_request_params(request: Request):
     request_body = await request.json()
     request_headers = request.headers
+    # print(request_body)
     # fix request body
     for message in request_body["messages"]:
         if isinstance(message["content"], list):
-            message["content"] = message["content"][0]["text"]
+            message["attachments"] = []
+            for i in range(1, len(message["content"])):
+                t = message["content"][i]["type"]
+                message["attachments"].append(
+                    fp.Attachment(
+                        url=message["content"][i][t]["url"],
+                        content_type=t,
+                        name=t,
+                        parsed_content='一张图片',
+                    )
+                )
+            message["content"] = message["content"][0]["text"] # remove the attachments
+            # print(message)
+
+
 
     def map_message(message):
         return {

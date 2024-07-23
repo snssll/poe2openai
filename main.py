@@ -27,10 +27,29 @@ RESPONSE_TEMPLATE = {
     ]
 }
 
+RESPONSE_TEMPLATE_NOT_STREAM = {
+    "id": "chat-123",
+    "object": "chat.completion.chunk",
+    "created": 123,
+    "model": "",
+    "choices": [
+        {
+            "message": {
+                "role": "assistant",
+                "content": ""
+            },
+            "logprobs": None,
+            "finish_reason": "stop",
+            "index": 0
+        }
+    ]
+}
+
 
 async def get_request_params(request: Request):
     request_body = await request.json()
     request_headers = request.headers
+    # print(request_headers)
     # print(request_body)
     # fix request body
     for message in request_body["messages"]:
@@ -92,7 +111,22 @@ async def chat_completions(request: Request):
                 response["choices"][0]["finish_reason"] = "stop"
             yield f"data: {json.dumps(response)}\n\n"
 
-    return StreamingResponse(generate(), media_type="text/event-stream")
+    if params["stream"]:
+        return StreamingResponse(generate(), media_type="text/event-stream")
+    else:
+        one_res = RESPONSE_TEMPLATE_NOT_STREAM.copy()
+        one_res["model"] = params["model"]
+        text = ""
+        async for chunk in fp.get_bot_response(
+                messages=params["messages"],
+                bot_name=params["model"],
+                api_key=params["api_key"],
+                temperature=params["temperature"],
+        ):
+            text += chunk.text
+        one_res["choices"][0]["message"]["content"] = text
+        return one_res
+
 
 
 if __name__ == "__main__":

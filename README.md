@@ -14,6 +14,9 @@ This is a tool that 🛠️seamlessly converts the POE developer API to the stan
 |Claude-3.5-Sonnet | claude-3.5-sonnet |
 |Claude-3.5-Sonnet-200k | claude-3.5-sonnet-200k |
 
+Note that you can look up and pass in the [model names](https://poe.com/explore?category=Official) supported by the official Poe website.
+The above is only an adaptation for when custom model names are not allowed in your client.
+
 ## How to Use?🤔
 
 ### One-Step Running

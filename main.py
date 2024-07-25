@@ -6,7 +6,7 @@ import uvicorn
 
 app = FastAPI()
 
-DEFAULT_MODEL = "GPT-4"
+# DEFAULT_MODEL = "GPT-4"
 BOTS_LIST = json.load(open("bots.json", "r"))
 RESPONSE_TEMPLATE = {
     "id": "chat-123",
@@ -79,7 +79,7 @@ async def get_request_params(request: Request):
 
     return {
         "api_key": request_headers.get("Authorization").split(" ")[1],
-        "model": BOTS_LIST.get(request_body["model"], DEFAULT_MODEL),
+        "model": BOTS_LIST.get(request_body["model"], request_body["model"]),
         "max_tokens": request_body.get("max_tokens", 1024),
         "messages": [
             fp.ProtocolMessage(**map_message(m)) for m in request_body["messages"]

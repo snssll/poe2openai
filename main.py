@@ -91,7 +91,8 @@ async def get_request_params(request: Request):
         "stream": request_body.get("stream", False),
     }
 
-
+@app.options("/v1/chat/completions")
+@app.options("/openai/chat/completions")
 @app.post("/v1/chat/completions")
 @app.post("/openai/chat/completions")
 async def chat_completions(request: Request):

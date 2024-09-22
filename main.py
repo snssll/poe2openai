@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Response
 from fastapi.responses import StreamingResponse
 import fastapi_poe as fp
 import json
@@ -93,6 +93,19 @@ async def get_request_params(request: Request):
 
 @app.options("/v1/chat/completions")
 @app.options("/openai/chat/completions")
+async def hello(request: Request):
+    return handle_options_request()
+
+def handle_options_request():
+    headers = {
+        "Allow": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    }
+    return Response(status_code=200, headers=headers)
+
+
 @app.post("/v1/chat/completions")
 @app.post("/openai/chat/completions")
 async def chat_completions(request: Request):
@@ -111,7 +124,6 @@ async def chat_completions(request: Request):
             if not chunk.text:
                 response["choices"][0]["finish_reason"] = "stop"
             yield f"data: {json.dumps(response)}\n\n"
-
     if params["stream"]:
         return StreamingResponse(generate(), media_type="text/event-stream")
     else:
